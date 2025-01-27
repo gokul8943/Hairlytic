@@ -48,7 +48,7 @@ export const login = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(400).json({ message: "User not found" })
         }
-        
+
         const isMatch = await bcrypt.compare(password, user.password as string)
         if (isMatch) {
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string)
@@ -60,5 +60,15 @@ export const login = async (req: Request, res: Response) => {
         console.log(error);
         res.status(500).json({ message: "Internal server error" })
     }
+}
 
+export const userCredits = async (req: Request, res: Response) => {
+    try {
+        const {userId} = req.body
+        const user:any = await userModel.findById(userId)
+        res.status(200).json({success:true,credits:user.creditBalance, user:{name:user.name}})
+    } catch (error:any) {
+        console.log((error))
+        res.json({success:false,message:error.message})
+    }
 }
