@@ -27,7 +27,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         const user = await newUser.save();
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
-            expiresIn: "1d", 
+            expiresIn: "1d",
         });
 
         res.status(201).json({
@@ -40,3 +40,25 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
+export const login = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body
+        const user = await userModel.findOne({ email })
+
+        if (!user) {
+            return res.status(400).json({ message: "User not found" })
+        }
+        
+        const isMatch = await bcrypt.compare(password, user.password as string)
+        if (isMatch) {
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string)
+            res.status(200).json({ sucess: true, token, user: { name: user.name } })
+        } else {
+            return res.status(200).json({ message: "login success" })
+        }
+    } catch (error: any) {
+        console.log(error);
+        res.status(500).json({ message: "Internal server error" })
+    }
+
+}
