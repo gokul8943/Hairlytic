@@ -1,0 +1,11 @@
+import { Document } from "mongoose";
+
+interface userInterface extends Document{
+    name:String,
+    email:String,
+    password:String,
+    profileImg:String
+    creditBalance:Number
+}
+
+export default userInterface
