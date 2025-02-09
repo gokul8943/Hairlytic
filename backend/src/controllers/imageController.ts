@@ -1,43 +1,58 @@
-import axios from "axios"
-import { Request, Response } from "express"
-import userModel from "../models/User/userModel"
+import axios from "axios";
+import { Request, Response } from "express";
+import userModel from "../models/User/userModel";
 
-const generateImage = async (req:Request,res:Response) =>{
-
+const generateImage = async (req: Request, res: Response) => {
     try {
-        const { prompt,userId} = req.body
-        const image = req.body.image
-        const user = await userModel.findById(userId)
+        const { prompt, userId, image } = req.body;
 
-      if(!prompt || !image){
-        return res.status(400).json({ success:false, message:"Prompt and image are required"})
-      }
+        if (!prompt || !image || !userId) {
+            return res.status(400).json({ success: false, message: "Prompt, image, and userId are required" });
+        }
 
-      if(userId.creditBalance <= 0){
-        return res.status(400).json({success:false, message:"Not enough credits"})
-      }
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
 
-      const formdata = new FormData()
-      formdata.append("prompt",prompt)
-      formdata.append("image",image)
+        if (user.creditBalance <= 0) {
+            return res.status(400).json({ success: false, message: "Not enough credits" });
+        }
 
-      const {data} =  await axios('https://clipdrop-api.co/reimagine/v1/reimagine', {
-        headers: {
-            'x-api-key': process.env.CLIPDROP_API,
-          },
-          responseType :'arrayBuffer'
-        })
        
-        const imageBuffer = Buffer.from(data, 'binary').toString('base64')
-        const resultImage = `data:image/png;base64,${imageBuffer}`
-        await userModel.findByIdAndUpdate(user._id,{creditBalance:user.creditBalance - 1})
+        const formData = new FormData();
+        formData.append("prompt", prompt);
+        formData.append("image", image);
 
-        res.json({success:true,message:'Image generated',creditBalance:user.creditBalance - 1, resultImage})
-    } catch (error:any) {
         
-    }
+        const { data } = await axios.post('https://clipdrop-api.co/reimagine/v1/reimagine', formData, {
+            headers: {
+                'x-api-key': process.env.CLIPDROP_API,
+                'Content-Type': 'multipart/form-data',
+            },
+            responseType: 'arraybuffer',
+        });
+
+        
+        const imageBuffer = Buffer.from(data, 'binary').toString('base64');
+        const resultImage = `data:image/png;base64,${imageBuffer}`;
+
        
+        user.creditBalance -= 1;
+        await user.save();
 
+        // Return the result
+        res.json({
+            success: true,
+            message: 'Image generated successfully',
+            creditBalance: user.creditBalance,
+            resultImage,
+        });
 
+    } catch (error: any) {
+        console.error("Error generating image:", error);
+        res.status(500).json({ success: false, message: error.message || "Internal server error" });
+    }
+};
 
-}
+export default generateImage;
