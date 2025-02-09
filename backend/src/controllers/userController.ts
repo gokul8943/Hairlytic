@@ -13,7 +13,6 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             res.status(400).json({ success: false, message: "Missing required fields" });
             return;
         }
-
         const existingUser = await userModel.findOne({ email });
         if (existingUser) {
             res.status(409).json({ success: false, message: "Email is already registered" });
