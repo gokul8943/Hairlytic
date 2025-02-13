@@ -9,6 +9,7 @@ const Header = () => {
          <p>Best text to style generator</p>
       </div>
       <h1  className='text-4xl font-semibold max-w-[300px] sm:text-7xl sm:max-w-[590px] mx-auto mt-10 text-center drop-shadow-md'>Turn text to <span className='text-blue-500'>Style</span>,in seconds</h1>
+      <p className='text-center max-w-xl mx-auto mt-5'>Unleash your creativity  with AI. Turn your imagination into visual art in seconds just type, and watch the magic happen.</p>
     </div>
   )
 }
