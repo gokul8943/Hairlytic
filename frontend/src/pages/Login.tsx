@@ -1,4 +1,4 @@
-import { GithubIcon} from 'lucide-react';
+import { GithubIcon } from 'lucide-react';
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -6,14 +6,14 @@ import { Separator } from "@/components/ui/Separator";
 
 const LoginPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-600 via-purple-500 to-pink-500 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-violet-200 via-purple-200 to-pink-500 flex items-center justify-center p-4">
       <div className="w-full max-w-[1200px] grid md:grid-cols-2 gap-8 items-center">
         {/* Left side - Welcome Content */}
         <div className="text-white space-y-6 p-8 hidden md:block">
-          <h1 className="text-5xl font-bold leading-tight">
+          <h1 className="text-5xl font-bold leading-tight bg-gradient-to-br from-violet-500 via-purple-600 to-pink-700 text-transparent bg-clip-text">
             Transform Your Look with AI-Powered Hairstyles
           </h1>
-          
+
           <p className="text-xl text-white/80">
             Join thousands of users discovering their perfect hairstyle through the power of artificial intelligence.
           </p>
@@ -50,7 +50,7 @@ const LoginPage = () => {
                   GitHub
                 </Button>
               </div>
-              
+
               <div className="relative my-6">
                 <Separator />
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-muted-foreground text-sm">
@@ -61,15 +61,15 @@ const LoginPage = () => {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Input 
-                  type="email" 
+                <Input
+                  type="email"
                   placeholder="Email"
                   className="h-11"
                 />
               </div>
               <div className="space-y-2">
-                <Input 
-                  type="password" 
+                <Input
+                  type="password"
                   placeholder="Password"
                   className="h-11"
                 />
