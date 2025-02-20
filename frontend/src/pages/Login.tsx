@@ -1,4 +1,4 @@
-import { Camera, GithubIcon} from 'lucide-react';
+import { GithubIcon} from 'lucide-react';
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -10,11 +10,6 @@ const LoginPage = () => {
       <div className="w-full max-w-[1200px] grid md:grid-cols-2 gap-8 items-center">
         {/* Left side - Welcome Content */}
         <div className="text-white space-y-6 p-8 hidden md:block">
-          <div className="flex items-center space-x-2 mb-12">
-            <Camera className="h-8 w-8" strokeWidth={2.5} />
-            <span className="text-3xl font-bold">HairAI</span>
-          </div>
-          
           <h1 className="text-5xl font-bold leading-tight">
             Transform Your Look with AI-Powered Hairstyles
           </h1>
