@@ -1,184 +1,100 @@
-import React, { useState } from 'react';
-import backgroundImage from '../assets/backgroundImage.png';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+const navigate = useNavigate()
 
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-
-    // Validate form
-    const { name, email, password, confirmPassword } = formData;
-    if (!name || !email || !password || !confirmPassword) {
-      setError('All fields are required.');
-      return;
-    }
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      return;
-    }
-
-    try {
-      setLoading(true);
-      // Replace with your backend API endpoint
-      const response = await axios.post(`${VITE_BACAKEND_URL}/api/user/register`, {
-        name,
-        email,
-        password,
-      });
-      setLoading(false);
-
-      if (response.status === 201) {
-        // Navigate to login page
-        navigate('/login');
-      }
-    } catch (err) {
-      setLoading(false);
-      setError(err.response?.data?.message || 'Something went wrong. Please try again.');
-    }
-  };
 
   return (
-    <div
-      className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      {/* Backdrop */}
-      <div className="absolute inset-0"></div>
+    <div className="min-h-screen bg-white/85 flex items-center justify-center p-6">
+      <div className="w-full max-w-[1200px] grid md:grid-cols-2 gap-8 items-center">
+        {/* Left side - Welcome Content */}
+        <div className="text-white space-y-6 p-8 hidden md:block">
+          <h1 className="text-5xl font-bold leading-tight bg-gradient-to-br from-violet-600 via-emerald-800 to-blue-700 text-transparent bg-clip-text drop-shadow-2xl">
+            Transform Your Look with AI-Powered Hairstyles
+          </h1>
 
-      {/* Sign-up form container */}
-      <div className="relative z-10 w-[90%] max-w-md m-2 px-6 py-8 bg-white rounded-xl shadow-lg sm:px-10 sm:py-12 md:mx-auto">
-        {/* Header */}
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-slate-900">Sign Up</h2>
-          <p className="mt-2 text-sm text-gray-600">Create your account</p>
-        </div>
-
-        {/* Error Message */}
-        {error && <div className="mt-4 text-red-600 text-sm">{error}</div>}
-
-        {/* Form */}
-        <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            {/* Name field */}
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-900 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your name"
-              />
-            </div>
-
-            {/* Email field */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-900 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your email"
-              />
-            </div>
-
-            {/* Password field */}
-            <div className="relative">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="block w-full px-3 py-2 border border-gray-800 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Create a password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                >
-                  {showPassword ? <span>🙈</span> : <span>👁️</span>}
-                </button>
-              </div>
-            </div>
-
-            {/* Confirm Password field */}
-            <div className="relative">
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                Confirm Password
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="block w-full px-3 py-2 border border-gray-800 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Confirm your password"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Submit button */}
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-                loading ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'
-              } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500`}
-            >
-              {loading ? 'Signing up...' : 'Sign up'}
-            </button>
-          </div>
-        </form>
-
-        {/* Login link */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Already have an account?{' '}
-            <span
-              onClick={() => navigate('/login')}
-              className="cursor-pointer font-medium text-blue-600 hover:text-blue-500"
-            >
-              Log in
-            </span>
+          <p className="text-xl text-slate-500 drop-shadow-xl">
+            Join thousands of users discovering their perfect hairstyle through the power of artificial intelligence.
           </p>
+
+          <div className="grid grid-cols-2 gap-4 mt-12">
+            <div className="bg-gradient-to-br from-violet-300 via-emerald-400 to-blue-300 p-4 rounded-lg backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white">1M+</h3>
+              <p className="text-whit">Styles Generated</p>
+            </div>
+            <div className="bg-gradient-to-br from-violet-300 via-emerald-500 to-blue-300 p-4 rounded-lg backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white/80 drop-shadow-lg">50K+</h3>
+              <p className="text-whit">Happy Users</p>
+            </div>
+          </div>
         </div>
+
+        {/* Right side - Login Form */}
+        <Card className="w-full max-w-md mx-auto backdrop-blur-sm bg-gradient-to-br from-violet-400 via-purple-300 to-blue-300">
+          <CardHeader className="space-y-2">
+            <CardTitle className="text-xl font-bold text-center drop-shadow-2xl">Create your account</CardTitle>
+            <CardDescription className="text-center text-slate-600">
+              Login to your account to continue your AI styling journey
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+  
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Input
+                  type="name"
+                  placeholder="Name"
+                  className="h-11"
+                />
+              </div>
+              <div className="space-y-2">
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  className="h-11"
+                />
+              </div>
+              <div className="space-y-2">
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  className="h-11"
+                />
+              </div>
+              <div className="space-y-2">
+                <Input
+                  type="Confirm password"
+                  placeholder=" Confirm Password"
+                  className="h-11"
+                />
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center space-x-2">
+                  <input type="checkbox" id="remember" className="rounded border-gray-300" />
+                  <label htmlFor="remember">Remember me</label>
+                </div>
+                <a href="#" className="text-purple-600 hover:text-purple-700">
+                  Forgot password?
+                </a>
+              </div>
+            </div>
+
+            <Button className="w-full h-11 bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-700 hover:to-pink-600 text-white">
+              Sign In
+            </Button>
+          </CardContent>
+          <CardFooter className="text-center text-sm">
+            <span className="w-full text-muted-foreground">
+              Do you already have an account?{' '}
+              <span  onClick={()=> navigate('/login') }  className="text-purple-600 hover:text-purple-700 font-medium">
+               Login 
+              </span>
+            </span>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

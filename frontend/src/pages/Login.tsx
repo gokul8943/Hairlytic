@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Separator } from "@/components/ui/Separator";
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const Login = () => {
+const navigate = useNavigate()
+
   return (
     <div className="min-h-screen bg-white/85 flex items-center justify-center p-4">
       <div className="w-full max-w-[1200px] grid md:grid-cols-2 gap-8 items-center">
@@ -92,9 +95,9 @@ const LoginPage = () => {
           <CardFooter className="text-center text-sm">
             <span className="w-full text-muted-foreground">
               Don't have an account?{' '}
-              <a href="#" className="text-purple-600 hover:text-purple-700 font-medium">
+              <span onClick={()=> navigate('/signup')} className="text-purple-600 hover:text-purple-700 font-medium">
                 Sign up for free
-              </a>
+              </span>
             </span>
           </CardFooter>
         </Card>
@@ -103,4 +106,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

@@ -5,15 +5,23 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/NavigationMenu";
+import { useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
+ const navigate = useNavigate()
+
+ const handleNavigate = () =>{
+  navigate('/login')
+ }
+
+
   return (
     <nav className="bg-gradient-to-r from-violet-600 to-pink-500 border-b w-full fixed z-20">
       <div className="max-w-[1400px] mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo and Brand */}
-          <Button variant="ghost" className="flex items-center space-x-2 hover:bg-transparent">
+          <Button  onClick={() => navigate('/')} variant="ghost" className="flex items-center space-x-2 hover:bg-transparent">
             <Camera className="h-6 w-6 text-white" strokeWidth={2.5} />
             <span className="text-2xl font-semibold text-white">HAIRLYTIC</span>
           </Button>
@@ -54,6 +62,7 @@ const Navbar = () => {
               <Heart className="h-6 w-6" strokeWidth={2.5} />
             </Button>
             <Button 
+            onClick={handleNavigate}
               variant="secondary"
               className="bg-white text-purple-600 hover:bg-white/90 font-medium"
             >
