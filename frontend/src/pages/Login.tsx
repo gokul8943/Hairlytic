@@ -1,152 +1,111 @@
-import { useState } from 'react';
-import backgroundImage from '../assets/backgroundImage.png';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Camera, GithubIcon} from 'lucide-react';
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Separator } from "@/components/ui/Separator";
 
-const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(''); // State to store the error message
-
-
-  const navigate = useNavigate();
-
-  const handleChange = (e:any) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e:any) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(`${backendUrl}/api/user/login`, formData);
-      const { token, user } = response.data;
-
-      // Save token to localStorage
-      localStorage.setItem('token', token);
-
-      // Update context
-      setToken(token);
-      setUser(user);
-
-      // Redirect to the dashboard or home page
-      navigate('/');
-    } catch (error:any) {
-      setError(error.response?.data?.message || 'An error occurred during login'); // Update the error message
-    }
-  };
-
-  const handleMove = () => {
-    navigate('/register');
-  };
-
+const LoginPage = () => {
   return (
-    <div
-      className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      <div className="absolute inset-0"></div>
-      <div className="relative z-10 w-[90%] max-w-md m-2 px-6 py-8 bg-white rounded-xl shadow-lg sm:px-10 sm:py-12 md:mx-auto">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-slate-900">Login </h2>
-          <p className="mt-2 text-sm text-gray-600">Please sign in to your account</p>
+    <div className="min-h-screen bg-gradient-to-br from-violet-600 via-purple-500 to-pink-500 flex items-center justify-center p-4">
+      <div className="w-full max-w-[1200px] grid md:grid-cols-2 gap-8 items-center">
+        {/* Left side - Welcome Content */}
+        <div className="text-white space-y-6 p-8 hidden md:block">
+          <div className="flex items-center space-x-2 mb-12">
+            <Camera className="h-8 w-8" strokeWidth={2.5} />
+            <span className="text-3xl font-bold">HairAI</span>
+          </div>
+          
+          <h1 className="text-5xl font-bold leading-tight">
+            Transform Your Look with AI-Powered Hairstyles
+          </h1>
+          
+          <p className="text-xl text-white/80">
+            Join thousands of users discovering their perfect hairstyle through the power of artificial intelligence.
+          </p>
+
+          <div className="grid grid-cols-2 gap-4 mt-12">
+            <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
+              <h3 className="text-2xl font-bold">1M+</h3>
+              <p className="text-white/70">Styles Generated</p>
+            </div>
+            <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
+              <h3 className="text-2xl font-bold">50K+</h3>
+              <p className="text-white/70">Happy Users</p>
+            </div>
+          </div>
         </div>
 
-        {error && (
-          <div className="mt-4 text-center text-red-500 text-sm">
-            {error} {/* Display error message */}
-          </div>
-        )}
-
-        <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border border-green-900 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your email"
-              />
-            </div>
-
-            <div className="relative">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="block w-full px-3 py-2 border border-gray-800 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter your password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                >
-                  {showPassword ? (
-                    <span className="h-5 w-5 text-gray-400">&#128065;</span>
-                  ) : (
-                    <span className="h-5 w-5 text-gray-400">&#128065;</span>
-                  )}
-                </button>
+        {/* Right side - Login Form */}
+        <Card className="w-full max-w-md mx-auto backdrop-blur-sm bg-white/95">
+          <CardHeader className="space-y-2">
+            <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
+            <CardDescription className="text-center">
+              Login to your account to continue your AI styling journey
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-4">
+                <Button variant="outline" className="w-full">
+                  {/* <Google className="h-5 w-5 mr-2" /> */}
+                  Google
+                </Button>
+                <Button variant="outline" className="w-full">
+                  <GithubIcon className="h-5 w-5 mr-2" />
+                  GitHub
+                </Button>
+              </div>
+              
+              <div className="relative my-6">
+                <Separator />
+                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-muted-foreground text-sm">
+                  or continue with
+                </span>
               </div>
             </div>
-          </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border border-gray-900 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Input 
+                  type="email" 
+                  placeholder="Email"
+                  className="h-11"
+                />
+              </div>
+              <div className="space-y-2">
+                <Input 
+                  type="password" 
+                  placeholder="Password"
+                  className="h-11"
+                />
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center space-x-2">
+                  <input type="checkbox" id="remember" className="rounded border-gray-300" />
+                  <label htmlFor="remember">Remember me</label>
+                </div>
+                <a href="#" className="text-purple-600 hover:text-purple-700">
+                  Forgot password?
+                </a>
+              </div>
             </div>
 
-            <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                Forgot your password?
+            <Button className="w-full h-11 bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-700 hover:to-pink-600 text-white">
+              Sign In
+            </Button>
+          </CardContent>
+          <CardFooter className="text-center text-sm">
+            <span className="w-full text-muted-foreground">
+              Don't have an account?{' '}
+              <a href="#" className="text-purple-600 hover:text-purple-700 font-medium">
+                Sign up for free
               </a>
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Sign in
-            </button>
-          </div>
-        </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Don&apos;t have an account?{' '}
-            <span onClick={handleMove} className="cursor-pointer font-medium text-blue-600 hover:text-blue-500">
-              Sign up
             </span>
-          </p>
-        </div>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default LoginPage;

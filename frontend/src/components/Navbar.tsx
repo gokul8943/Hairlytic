@@ -9,13 +9,13 @@ import {
 
 const Navbar = () => {
   return (
-    <nav className="bg-gradient-to-r from-violet-600 to-pink-500 border-b">
+    <nav className="bg-gradient-to-r from-violet-600 to-pink-500 border-b w-full fixed z-20">
       <div className="max-w-[1400px] mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo and Brand */}
           <Button variant="ghost" className="flex items-center space-x-2 hover:bg-transparent">
             <Camera className="h-6 w-6 text-white" strokeWidth={2.5} />
-            <span className="text-2xl font-semibold text-white">HairAI</span>
+            <span className="text-2xl font-semibold text-white">HAIRLYTIC</span>
           </Button>
 
           {/* Main Navigation */}
