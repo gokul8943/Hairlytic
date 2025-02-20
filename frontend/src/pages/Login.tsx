@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/Separator";
 
 const LoginPage = () => {
   return (
-    <div className="min-h-screen bg-white/80 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white/85 flex items-center justify-center p-4">
       <div className="w-full max-w-[1200px] grid md:grid-cols-2 gap-8 items-center">
         {/* Left side - Welcome Content */}
         <div className="text-white space-y-6 p-8 hidden md:block">
@@ -19,22 +19,22 @@ const LoginPage = () => {
           </p>
 
           <div className="grid grid-cols-2 gap-4 mt-12">
-            <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-              <h3 className="text-2xl font-bold text-emerald-500">1M+</h3>
-              <p className="text-violet-500">Styles Generated</p>
+            <div className="bg-gradient-to-br from-violet-300 via-emerald-400 to-blue-300 p-4 rounded-lg backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white">1M+</h3>
+              <p className="text-whit">Styles Generated</p>
             </div>
-            <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-              <h3 className="text-2xl font-bold text-emerald-600">50K+</h3>
-              <p className="text-violet-500">Happy Users</p>
+            <div className="bg-gradient-to-br from-violet-300 via-emerald-500 to-blue-300 p-4 rounded-lg backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white/80 drop-shadow-lg">50K+</h3>
+              <p className="text-whit">Happy Users</p>
             </div>
           </div>
         </div>
 
         {/* Right side - Login Form */}
-        <Card className="w-full max-w-md mx-auto backdrop-blur-sm bg-white/95">
+        <Card className="w-full max-w-md mx-auto backdrop-blur-sm bg-gradient-to-br from-violet-400 via-purple-300 to-blue-300">
           <CardHeader className="space-y-2">
-            <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
-            <CardDescription className="text-center">
+            <CardTitle className="text-xl font-bold text-center drop-shadow-2xl">Welcome back</CardTitle>
+            <CardDescription className="text-center text-slate-600">
               Login to your account to continue your AI styling journey
             </CardDescription>
           </CardHeader>
