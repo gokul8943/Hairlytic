@@ -43,28 +43,28 @@ const navigate = useNavigate()
           <CardContent className="space-y-4">
   
             <div className="space-y-4">
-              <div className="space-y-2">
+              <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
                   type="name"
                   placeholder="Name"
                   className="h-11"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
                   type="email"
                   placeholder="Email"
                   className="h-11"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
                   type="password"
                   placeholder="Password"
                   className="h-11"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
                   type="Confirm password"
                   placeholder=" Confirm Password"
@@ -82,14 +82,14 @@ const navigate = useNavigate()
               </div>
             </div>
 
-            <Button className="w-full h-11 bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-700 hover:to-pink-600 text-white">
-              Sign In
+            <Button className="w-full h-11 bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-700 hover:to-pink-600 text-white cursor-pointer">
+              Create Account
             </Button>
           </CardContent>
           <CardFooter className="text-center text-sm">
             <span className="w-full text-muted-foreground">
               Do you already have an account?{' '}
-              <span  onClick={()=> navigate('/login') }  className="text-purple-600 hover:text-purple-700 font-medium">
+              <span  onClick={()=> navigate('/login') }  className="text-purple-600 hover:text-purple-700 font-medium cursor-pointer">
                Login 
               </span>
             </span>

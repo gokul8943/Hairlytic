@@ -30,22 +30,22 @@ const Navbar = () => {
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList className="space-x-6">
               <NavigationMenuItem>
-                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white">
+                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
                   Generate
                 </Button>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white">
+                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
                   Gallery
                 </Button>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white">
+                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
                   How It Works
                 </Button>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white">
+                <Button onClick={()=> navigate('/pricing')} variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
                   Pricing
                 </Button>
               </NavigationMenuItem>
@@ -64,7 +64,7 @@ const Navbar = () => {
             <Button 
             onClick={handleNavigate}
               variant="secondary"
-              className="bg-white text-purple-600 hover:bg-white/90 font-medium"
+              className="bg-white text-purple-600 hover:bg-white/90 font-medium cursor-pointer"
             >
               <User className="h-5 w-5 mr-2" />
               Sign In

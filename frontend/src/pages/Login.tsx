@@ -26,7 +26,7 @@ const navigate = useNavigate()
               <h3 className="text-2xl font-bold text-white">1M+</h3>
               <p className="text-whit">Styles Generated</p>
             </div>
-            <div className="bg-gradient-to-br from-violet-300 via-emerald-500 to-blue-300 p-4 rounded-lg backdrop-blur-sm">
+            <div className="bg-gradient-to-br from-violet-300 via-emerald-400 to-blue-300 p-4 rounded-lg backdrop-blur-sm">
               <h3 className="text-2xl font-bold text-white/80 drop-shadow-lg">50K+</h3>
               <p className="text-whit">Happy Users</p>
             </div>
@@ -63,14 +63,14 @@ const navigate = useNavigate()
             </div>
 
             <div className="space-y-4">
-              <div className="space-y-2">
+              <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
                   type="email"
                   placeholder="Email"
                   className="h-11"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
                   type="password"
                   placeholder="Password"
@@ -88,14 +88,14 @@ const navigate = useNavigate()
               </div>
             </div>
 
-            <Button className="w-full h-11 bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-700 hover:to-pink-600 text-white">
+            <Button className="w-full h-11 bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-700 hover:to-pink-600 text-white cursor-pointer">
               Sign In
             </Button>
           </CardContent>
           <CardFooter className="text-center text-sm">
             <span className="w-full text-muted-foreground">
               Don't have an account?{' '}
-              <span onClick={()=> navigate('/signup')} className="text-purple-600 hover:text-purple-700 font-medium">
+              <span onClick={()=> navigate('/signup')} className="text-purple-600 hover:text-purple-700 font-medium cursor-pointer">
                 Sign up for free
               </span>
             </span>
