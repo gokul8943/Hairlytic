@@ -47,13 +47,13 @@ const PricingSection = () => {
     ];
   
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-600 via-purple-500 to-pink-500 py-20 px-4">
+      <div className="min-h-screen  py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl font-bold text-white md:text-5xl">
+            <h2 className="text-5xl font-bold leading-tight bg-gradient-to-br from-violet-600 via-emerald-800 to-blue-700 text-transparent bg-clip-text drop-shadow-2xl">
               Choose Your Perfect Plan
             </h2>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            <p className="text-lg font-bold text-slate-800 max-w-2xl mx-auto">
               Transform your look with our AI-powered hairstyle generation. Select the plan that best fits your creative needs.
             </p>
           </div>

@@ -17,13 +17,13 @@ const Navbar = () => {
 
 
   return (
-    <nav className="bg-gradient-to-r from-violet-600 to-pink-500 border-b w-full fixed z-20">
+    <nav className="bg-gradient-to-r from-violet-400 to-pink-400 border-b w-full fixed z-20">
       <div className="max-w-[1400px] mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo and Brand */}
           <Button  onClick={() => navigate('/')} variant="ghost" className="flex items-center space-x-2 hover:bg-transparent">
             <Camera className="h-6 w-6 text-white" strokeWidth={2.5} />
-            <span className="text-2xl font-semibold text-white">HAIRLYTIC</span>
+            <span className="text-xl drop-shadow-2xl font-bold text-lime-100">HAIR<span className='text-pink-200'>LYTIC</span></span>
           </Button>
 
           {/* Main Navigation */}
@@ -32,11 +32,6 @@ const Navbar = () => {
               <NavigationMenuItem>
                 <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
                   Generate
-                </Button>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
-                  Gallery
                 </Button>
               </NavigationMenuItem>
               <NavigationMenuItem>
