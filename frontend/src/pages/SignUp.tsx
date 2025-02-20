@@ -21,11 +21,11 @@ const navigate = useNavigate()
           </p>
 
           <div className="grid grid-cols-2 gap-4 mt-12">
-            <div className="bg-gradient-to-br from-violet-300 via-emerald-400 to-blue-300 p-4 rounded-lg backdrop-blur-sm">
+            <div className="bg-gradient-to-br from-violet-600  to-pink-600 p-4 rounded-lg backdrop-blur-sm">
               <h3 className="text-2xl font-bold text-white">1M+</h3>
               <p className="text-whit">Styles Generated</p>
             </div>
-            <div className="bg-gradient-to-br from-violet-300 via-emerald-500 to-blue-300 p-4 rounded-lg backdrop-blur-sm">
+            <div className="bg-gradient-to-br from-violet-500 to-pink-600 p-4 rounded-lg backdrop-blur-sm">
               <h3 className="text-2xl font-bold text-white/80 drop-shadow-lg">50K+</h3>
               <p className="text-whit">Happy Users</p>
             </div>
