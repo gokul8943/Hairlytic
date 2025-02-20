@@ -6,26 +6,26 @@ import { Separator } from "@/components/ui/Separator";
 
 const LoginPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-200 via-purple-200 to-pink-500 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white/80 flex items-center justify-center p-4">
       <div className="w-full max-w-[1200px] grid md:grid-cols-2 gap-8 items-center">
         {/* Left side - Welcome Content */}
         <div className="text-white space-y-6 p-8 hidden md:block">
-          <h1 className="text-5xl font-bold leading-tight bg-gradient-to-br from-violet-500 via-purple-600 to-pink-700 text-transparent bg-clip-text">
+          <h1 className="text-5xl font-bold leading-tight bg-gradient-to-br from-violet-600 via-emerald-800 to-blue-700 text-transparent bg-clip-text drop-shadow-2xl">
             Transform Your Look with AI-Powered Hairstyles
           </h1>
 
-          <p className="text-xl text-white/80">
+          <p className="text-xl text-slate-500 drop-shadow-xl">
             Join thousands of users discovering their perfect hairstyle through the power of artificial intelligence.
           </p>
 
           <div className="grid grid-cols-2 gap-4 mt-12">
             <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-              <h3 className="text-2xl font-bold">1M+</h3>
-              <p className="text-white/70">Styles Generated</p>
+              <h3 className="text-2xl font-bold text-emerald-500">1M+</h3>
+              <p className="text-violet-500">Styles Generated</p>
             </div>
             <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-              <h3 className="text-2xl font-bold">50K+</h3>
-              <p className="text-white/70">Happy Users</p>
+              <h3 className="text-2xl font-bold text-emerald-600">50K+</h3>
+              <p className="text-violet-500">Happy Users</p>
             </div>
           </div>
         </div>
