@@ -9,11 +9,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
- const navigate = useNavigate()
+  const navigate = useNavigate()
 
- const handleNavigate = () =>{
-  navigate('/login')
- }
+  const handleNavigate = () => {
+    navigate('/login')
+  }
 
 
   return (
@@ -21,7 +21,7 @@ const Navbar = () => {
       <div className="max-w-[1400px] mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo and Brand */}
-          <Button  onClick={() => navigate('/')} variant="ghost" className="flex items-center space-x-2 hover:bg-transparent">
+          <Button onClick={() => navigate('/')} variant="ghost" className="flex items-center space-x-2 hover:bg-transparent">
             <Camera className="h-6 w-6 text-white" strokeWidth={2.5} />
             <span className="text-xl font-bold leading-tight bg-gradient-to-br from-white to-white/80 text-transparent bg-clip-text drop-shadow-2xl">HAIRLYTIC</span>          </Button>
 
@@ -29,17 +29,18 @@ const Navbar = () => {
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList className="space-x-6">
               <NavigationMenuItem>
-                <Button onClick={()=> navigate('/generate')} variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
+                <Button onClick={() => navigate('/')} variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
+                  Home
+                </Button>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Button onClick={() => navigate('/generate')} variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
                   Generate
                 </Button>
               </NavigationMenuItem>
+
               <NavigationMenuItem>
-                <Button variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
-                  How It Works
-                </Button>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Button onClick={()=> navigate('/pricing')} variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
+                <Button onClick={() => navigate('/pricing')} variant="ghost" className="text-lg text-white hover:bg-white/10 hover:text-white cursor-pointer">
                   Pricing
                 </Button>
               </NavigationMenuItem>
@@ -48,15 +49,15 @@ const Navbar = () => {
 
           {/* Right Section */}
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="icon"
               className="text-white hover:bg-white/10"
             >
               <Heart className="h-6 w-6" strokeWidth={2.5} />
             </Button>
-            <Button 
-            onClick={handleNavigate}
+            <Button
+              onClick={handleNavigate}
               variant="secondary"
               className="bg-white text-purple-600 hover:bg-white/90 font-medium cursor-pointer"
             >
