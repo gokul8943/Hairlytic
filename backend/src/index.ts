@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from 'dotenv'
 import cors from 'cors'
 import ConnectDB from "./config/dbConnection";
+import userRouter from "./routers/userRoutes";
 
 dotenv.config()
 const app = express()
@@ -11,6 +12,8 @@ const Port = process.env.PORT || 3000
 
 app.use(cors())
 app.use(express.json())
+
+app.use(userRouter)
 
 ConnectDB()
 
