@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Pricing from './pages/Pricing'
+import PromptGenerator from './pages/PromptGenerator'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/pricing' element={<Pricing />} />
+          <Route path='/generate' element={<PromptGenerator />} />
           <Route />
         </Routes>
       </div>

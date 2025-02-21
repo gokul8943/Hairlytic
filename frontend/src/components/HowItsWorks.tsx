@@ -38,7 +38,7 @@ const HowItWorks = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-5xl font-bold leading-tight bg-gradient-to-br from-blue-600 via-emerald-800 to-violet-700 text-transparent bg-clip-text drop-shadow-2xl" >
+          <h2 className="text-5xl font-bold leading-tight bg-gradient-to-br from-pink-600 via-emerald-800 to-pink-700 text-transparent bg-clip-text drop-shadow-2xl" >
             How It Works
             </h2>
           <p className="text-xl text-slate-700 max-w-2xl mx-auto">
