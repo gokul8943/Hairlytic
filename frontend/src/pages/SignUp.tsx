@@ -2,9 +2,25 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SignUp = () => {
-const navigate = useNavigate()
+  const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: ""
+  })
+
+  const handleSubmit = () => {
+    try {
+
+    } catch (error) {
+
+    }
+  }
 
 
   return (
@@ -33,32 +49,43 @@ const navigate = useNavigate()
         </div>
 
         {/* Right side - Login Form */}
-        <Card className="w-full max-w-md mx-auto backdrop-blur-sm bg-gradient-to-br from-violet-400 via-purple-300 to-blue-300">
+        <Card className="w-full max-w-md mx-auto mt-[30px] backdrop-blur-sm bg-gradient-to-br from-violet-400 via-purple-300 to-blue-300">
           <CardHeader className="space-y-2">
             <CardTitle className="text-xl font-bold text-center drop-shadow-2xl">Create your account</CardTitle>
             <CardDescription className="text-center text-slate-600">
-              Login to your account to continue your AI styling journey
+              Create to your account to continue your AI styling journey
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-  
+
             <div className="space-y-4">
               <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
                   type="name"
                   placeholder="Name"
+                  name="name"
                   className="h-11"
                 />
               </div>
               <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
                   type="email"
+                  name="email"
                   placeholder="Email"
                   className="h-11"
                 />
               </div>
               <div className="space-y-2 bg-white/70 rounded-lg">
                 <Input
+                  type="number"
+                  name="phone"
+                  placeholder="Phone Number"
+                  className="h-11"
+                />
+              </div>
+              <div className="space-y-2 bg-white/70 rounded-lg">
+                <Input
+                  name="'password"
                   type="password"
                   placeholder="Password"
                   className="h-11"
@@ -89,8 +116,8 @@ const navigate = useNavigate()
           <CardFooter className="text-center text-sm">
             <span className="w-full text-muted-foreground">
               Do you already have an account?{' '}
-              <span  onClick={()=> navigate('/login') }  className="text-purple-600 hover:text-purple-700 font-medium cursor-pointer">
-               Login 
+              <span onClick={() => navigate('/login')} className="text-purple-600 hover:text-purple-700 font-medium cursor-pointer">
+                Login
               </span>
             </span>
           </CardFooter>
