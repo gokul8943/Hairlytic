@@ -10,13 +10,18 @@ const app = express()
 
 const Port = process.env.PORT || 3000
 
-app.use(cors())
-app.use(express.json())
+ConnectDB()
+const corsOptions = {
+origin: ['http://localhost:5173', 'http://localhost:5174'],
+credentials: true,
+methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+};
+
+app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ limit: '20mb', extended: true }));
+app.use(cors(corsOptions))
 
 app.use(userRouter)
-
-ConnectDB()
-
 
 app.listen(Port, () => {
         console.log(`http://localhost:${Port}`);
