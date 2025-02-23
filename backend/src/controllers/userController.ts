@@ -7,9 +7,9 @@ import jwt from 'jsonwebtoken'
 
 export const register = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email,phone, password } = req.body;
+        const { name, email, phone, password } = req.body;
 
-        if (!name || !email ||  !phone || !password) {
+        if (!name || !email || !phone || !password) {
             res.status(400).json({ success: false, message: "Missing required fields" });
             return;
         }
@@ -50,8 +50,9 @@ export const login = async (req: Request, res: Response) => {
 
         const isMatch = await bcrypt.compare(password, user.password as string)
         if (isMatch) {
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string)
-            res.status(200).json({ sucess: true, token, user: { name: user.name } })
+            const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, { expiresIn: '30m' });
+            const refreshToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, { expiresIn: '30d' });
+            res.status(200).json({ sucess: true, accessToken, refreshToken, user: { name: user.name } })
         } else {
             return res.status(200).json({ message: "login success" })
         }
@@ -63,11 +64,11 @@ export const login = async (req: Request, res: Response) => {
 
 export const userCredits = async (req: Request, res: Response) => {
     try {
-        const {userId} = req.body
-        const user:any = await userModel.findById(userId)
-        res.status(200).json({success:true,credits:user.creditBalance, user:{name:user.name}})
-    } catch (error:any) {
+        const { userId } = req.body
+        const user: any = await userModel.findById(userId)
+        res.status(200).json({ success: true, credits: user.creditBalance, user: { name: user.name } })
+    } catch (error: any) {
         console.log((error))
-        res.json({success:false,message:error.message})
+        res.json({ success: false, message: error.message })
     }
 }
