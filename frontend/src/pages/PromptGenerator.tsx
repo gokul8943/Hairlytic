@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 
 const PromptGenerator = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
+  
   const hairStyles = [
     "Long Wavy", "Bob Cut", "Pixie Style", "Beach Waves",
     "Straight Sleek", "Curly Natural", "Layered Cut", "Modern Shag"
@@ -39,7 +39,7 @@ const PromptGenerator = () => {
                 <div className="flex items-center justify-center w-full">
                   {selectedImage ? (
                     <div className="relative w-full aspect-square rounded-lg overflow-hidden">
-                      <img
+                      <img 
                         src="/api/placeholder/400/400"
                         alt="Selected"
                         className="w-full h-full object-cover"
@@ -64,31 +64,18 @@ const PromptGenerator = () => {
             </Card>
 
             {/* Text Description */}
-            <Card className="backdrop-blur-sm bg-white/95">
-              <CardContent className="p-6 space-y-4">
-                <h3 className="text-lg font-semibold mb-2">Describe Your Desired Style</h3>
-                <Textarea
-                  placeholder="Describe your dream hairstyle... (e.g., 'Long wavy blonde hair with layers')"
-                  className="min-h-[100px]"
-                />
-              </CardContent>
-            </Card>
+            
 
             {/* Quick Selects */}
-
-          </div>
-
-          {/* Right Column - Preview & Generate */}
-          <div className="space-y-6">
             <Card className="backdrop-blur-sm bg-white/95">
               <CardContent className="p-6 space-y-4">
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Hair Style</h3>
                   <div className="flex flex-wrap gap-2">
                     {hairStyles.map((style) => (
-                      <Badge
+                      <Badge 
                         key={style}
-                        variant="secondary"
+                        variant="secondary" 
                         className="cursor-pointer hover:bg-purple-100"
                       >
                         {style}
@@ -100,7 +87,7 @@ const PromptGenerator = () => {
                   <h3 className="text-lg font-semibold mb-2">Hair Color</h3>
                   <div className="flex flex-wrap gap-2">
                     {hairColors.map((color) => (
-                      <Badge
+                      <Badge 
                         key={color}
                         variant="secondary"
                         className="cursor-pointer hover:bg-purple-100"
@@ -110,6 +97,19 @@ const PromptGenerator = () => {
                     ))}
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Right Column - Preview & Generate */}
+          <div className="space-y-8">
+          <Card className="backdrop-blur-sm bg-white/95">
+              <CardContent className="p-6 space-y-4">
+                <h3 className="text-lg font-semibold mb-2">Describe Your Desired Style</h3>
+                <Textarea 
+                  placeholder="Describe your dream hairstyle... (e.g., 'Long wavy blonde hair with layers')"
+                  className="min-h-[100px]"
+                />
               </CardContent>
             </Card>
           </div>
