@@ -6,14 +6,23 @@ import {
   NavigationMenuList,
 } from "@/components/ui/NavigationMenu";
 import { useNavigate } from 'react-router-dom';
+import useAuthStore from '@/store/AuthStore';
 
 
 const Navbar = () => {
   const navigate = useNavigate()
 
   const handleNavigate = () => {
-    navigate('/login')
+    if (user) {
+      navigate('/')
+    } else
+      navigate('/login')
   }
+
+  const { authState} = useAuthStore();
+
+  const user = authState.user
+
 
 
   return (
@@ -61,8 +70,10 @@ const Navbar = () => {
               variant="secondary"
               className="bg-white text-purple-600 hover:bg-white/90 font-medium cursor-pointer"
             >
-              <User className="h-5 w-5 mr-2" />
-              Sign In
+              {user ?
+                <><User className="h-5 w-5 mr-2" /><span className='text-black'>{user.name}</span></> :
+                <><User className="h-5 w-5 mr-2" /><span>Sign In</span></>
+              }
             </Button>
           </div>
         </div>
