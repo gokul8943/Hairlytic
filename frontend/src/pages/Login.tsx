@@ -61,12 +61,11 @@ const Login = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     setErrors(prev => ({ ...prev, [name]: "" }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Fixed typo in preventDefault
+    e.preventDefault(); 
     
     if (!validateForm()) {
       message.error("Please fix the errors in the form");
