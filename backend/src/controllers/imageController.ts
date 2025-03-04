@@ -15,7 +15,7 @@ const generateImage = async (req: Request, res: Response) => {
             return res.status(404).json({ success: false, message: "User not found" });
         }
 
-        if (user.creditBalance <= 0) {
+        if ((user.creditBalance as number) <= 0) {
             return res.status(400).json({ success: false, message: "Not enough credits" });
         }
 
@@ -37,8 +37,7 @@ const generateImage = async (req: Request, res: Response) => {
         const imageBuffer = Buffer.from(data, 'binary').toString('base64');
         const resultImage = `data:image/png;base64,${imageBuffer}`;
 
-       
-        user.creditBalance -= 1;
+        user.creditBalance as number - 1;
         await user.save();
 
         // Return the result
