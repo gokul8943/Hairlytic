@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import ConnectDB from "./config/dbConnection";
 import userRouter from "./routers/userRoutes";
+import imageRouter from "./routers/imageRoutes";
 
 dotenv.config()
 const app = express()
@@ -21,7 +22,8 @@ app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ limit: '20mb', extended: true }));
 app.use(cors(corsOptions))
 
-app.use(userRouter)
+app.use('/user',userRouter)
+app.use('/generate',imageRouter)
 
 app.listen(Port, () => {
         console.log(`http://localhost:${Port}`);

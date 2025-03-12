@@ -4,6 +4,6 @@ import userAuth from '../middleware/userAuth';
 
 const imageRouter = express.Router();
 
-imageRouter.post('/generate-image', userAuth, generateImage);
+imageRouter.post('/generate-image', generateImage as any);
 
 export default imageRouter;

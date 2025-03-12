@@ -5,7 +5,8 @@ import userModel from "../models/User/userModel";
 const generateImage = async (req: Request, res: Response) => {
     try {
         const { prompt, userId, image } = req.body;
-
+            console.log(req.body);
+            
         if (!prompt || !image || !userId) {
             return res.status(400).json({ success: false, message: "Prompt, image, and userId are required" });
         }
