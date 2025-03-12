@@ -4,34 +4,79 @@ import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Textarea } from "@/components/ui/TextArea";
 import { Badge } from "@/components/ui/Badge";
+import { generateImage } from '@/services/imageApi/image.api';
+import { message, Spin } from 'antd';
+import useAuthStore from '@/store/AuthStore';
+
+interface GenerateFormData {
+  image: string;
+  userId: string;
+  prompt: string;
+}
 
 const PromptGenerator = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  
-  const hairStyles = [
-    "Long Wavy", "Bob Cut", "Pixie Style", "Beach Waves",
-    "Straight Sleek", "Curly Natural", "Layered Cut", "Modern Shag"
-  ];
+  const [generatedImages, setGeneratedImages] = useState<string[]>([]); // Store multiple generated images
+  const [loading, setLoading] = useState(false);
+  const { authState } = useAuthStore()
 
-  const hairColors = [
-    "Blonde", "Brunette", "Black", "Red",
-    "Pink", "Blue", "Purple", "Silver"
-  ];
+  const userId = authState.user
+  console.log(authState.user);
+  
+
+  const [formData, setFormData] = useState<GenerateFormData>({
+    userId: userId as string,
+    image: "",
+    prompt: "",
+  });
+  console.log('data',formData);
+  
+  // Handle Image Upload
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result as string);
+        setFormData((prev) => ({ ...prev, image: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Handle Submit
+  const handleSubmit = async () => {
+    if (!formData.userId || !formData.prompt || !formData.image) {
+      message.error("Please upload an image and enter a description.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await generateImage(formData);
+      setGeneratedImages([...generatedImages, res.data.image]);
+      message.success("Image generated successfully!");
+    } catch (err: any) {
+      message.error("Failed to generate the image. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen  py-14 px-4">
+    <div className="min-h-screen py-14 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold leading-tight bg-gradient-to-br from-violet-600 via-emerald-800 to-pink-700 text-transparent bg-clip-text drop-shadow-2xl mb-4">
             Create Your Dream Hairstyle
           </h1>
           <p className="text-xl text-slate-900">
-            Describe your perfect look or get inspired by our suggestions
+            Upload your photo and describe your dream look!
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Left Column - Input Section */}
+          {/* Left Column - Upload & Select */}
           <div className="space-y-6">
             {/* Image Upload */}
             <Card className="backdrop-blur-sm bg-white/95">
@@ -39,44 +84,51 @@ const PromptGenerator = () => {
                 <div className="flex items-center justify-center w-full">
                   {selectedImage ? (
                     <div className="relative w-full aspect-square rounded-lg overflow-hidden">
-                      <img 
-                        src="/api/placeholder/400/400"
+                      <img
+                        src={selectedImage}
                         alt="Selected"
                         className="w-full h-full object-cover"
                       />
                       <Button
                         variant="ghost"
                         className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                        onClick={() => setSelectedImage(null)}
+                        onClick={() => {
+                          setSelectedImage(null);
+                          setFormData((prev) => ({ ...prev, image: "" }));
+                        }}
                       >
                         <RefreshCcw className="h-4 w-4" />
                       </Button>
                     </div>
                   ) : (
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center w-full cursor-pointer hover:border-purple-400 transition-colors">
+                    <label className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center w-full cursor-pointer hover:border-purple-400 transition-colors">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleImageUpload}
+                      />
                       <ImageIcon className="h-12 w-12 mx-auto mb-4 text-gray-400" />
                       <p className="text-gray-600">Drop your photo here or click to upload</p>
                       <p className="text-sm text-gray-400 mt-2">Recommended: Clear, front-facing photo</p>
-                    </div>
+                    </label>
                   )}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Text Description */}
-            
-
-            {/* Quick Selects */}
+            {/* Hair Style & Color Selection */}
             <Card className="backdrop-blur-sm bg-white/95">
               <CardContent className="p-6 space-y-4">
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Hair Style</h3>
                   <div className="flex flex-wrap gap-2">
-                    {hairStyles.map((style) => (
-                      <Badge 
+                    {["Long Wavy", "Bob Cut", "Pixie Style", "Beach Waves"].map((style) => (
+                      <Badge
                         key={style}
-                        variant="secondary" 
+                        variant="secondary"
                         className="cursor-pointer hover:bg-purple-100"
+                        onClick={() => setFormData((prev) => ({ ...prev, prompt: `${prev.prompt} ${style}` }))}
                       >
                         {style}
                       </Badge>
@@ -86,11 +138,12 @@ const PromptGenerator = () => {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Hair Color</h3>
                   <div className="flex flex-wrap gap-2">
-                    {hairColors.map((color) => (
-                      <Badge 
+                    {["Blonde", "Brunette", "Black", "Red"].map((color) => (
+                      <Badge
                         key={color}
                         variant="secondary"
                         className="cursor-pointer hover:bg-purple-100"
+                        onClick={() => setFormData((prev) => ({ ...prev, prompt: `${prev.prompt} ${color}` }))}
                       >
                         {color}
                       </Badge>
@@ -101,17 +154,39 @@ const PromptGenerator = () => {
             </Card>
           </div>
 
-          {/* Right Column - Preview & Generate */}
+          {/* Right Column - Description & Generate */}
           <div className="space-y-8">
-          <Card className="backdrop-blur-sm bg-white/95">
+            <Card className="backdrop-blur-sm bg-white/95">
               <CardContent className="p-6 space-y-4">
                 <h3 className="text-lg font-semibold mb-2">Describe Your Desired Style</h3>
-                <Textarea 
+                <Textarea
                   placeholder="Describe your dream hairstyle... (e.g., 'Long wavy blonde hair with layers')"
                   className="min-h-[100px]"
+                  name="prompt"
+                  value={formData.prompt}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, prompt: e.target.value }))}
                 />
               </CardContent>
             </Card>
+
+            {/* Submit Button */}
+            <Button className="w-full bg-purple-600 text-white hover:bg-purple-700" onClick={handleSubmit} disabled={loading}>
+              {loading ? <Spin /> : "Generate Image"}
+            </Button>
+
+            {/* Display Generated Images */}
+            {generatedImages.length > 0 && (
+              <Card className="backdrop-blur-sm bg-white/95">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold mb-2">Generated Images</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {generatedImages.map((img, index) => (
+                      <img key={index} src={img} alt="Generated" className="w-full rounded-lg shadow-lg" />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </div>
