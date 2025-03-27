@@ -1,6 +1,6 @@
 # Hairlytic
 
-Hairlytic is a modern web application designed to help users track and analyze their hair care journey. The application provides tools for monitoring hair and give the perfect hairstyle.
+Hairlytic is a modern web application designed to help users track and analyze their hair style.The application provides tools for monitoring hair and give the perfect hairstyle.
 
 ## Tech Stack
 
@@ -87,9 +87,7 @@ The application will be available at:
 ## Features
 
 - User Authentication
-- Hair Care Tracking
-- Progress Analytics
-- Treatment Monitoring
+- Hair style generating
 - Modern and Responsive UI
 - Secure API Endpoints
 
