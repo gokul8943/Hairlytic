@@ -52,9 +52,20 @@ export const login = async (req: Request, res: Response) => {
         if (isMatch) {
             const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, { expiresIn: '30m' });
             const refreshToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, { expiresIn: '30d' });
-            res.status(200).json({ sucess: true, accessToken, refreshToken, user: { name: user.name } })
+            res.status(200).json({
+                success: true,
+                accessToken,
+                refreshToken,
+                user: {
+                    id: user._id,
+                    username: user.name,
+                    email: user.email,
+                    phone: user.phone,
+                    creditBalance: user.creditBalance
+                }
+            })
         } else {
-            return res.status(200).json({ message: "login success" })
+            return res.status(401).json({ message: "Invalid credentials" })
         }
     } catch (error: any) {
         console.log(error);

@@ -20,17 +20,16 @@ const PromptGenerator = () => {
   const [loading, setLoading] = useState(false);
   const { authState } = useAuthStore()
 
-  const userId = authState.user
-  console.log(authState.user);
-  
+  const userId = authState.user?.id
+  console.log('User details:', authState.user);
 
   const [formData, setFormData] = useState<GenerateFormData>({
-    userId: userId as string,
+    userId: userId || '',
     image: "",
     prompt: "",
   });
-  console.log('data',formData);
-  
+  console.log('Form data:', formData);
+
   // Handle Image Upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -54,10 +53,15 @@ const PromptGenerator = () => {
     setLoading(true);
     try {
       const res = await generateImage(formData);
-      setGeneratedImages([...generatedImages, res.data.image]);
-      message.success("Image generated successfully!");
+      if (res.data.success) {
+        setGeneratedImages([...generatedImages, res.data.image]);
+        message.success("Image generated successfully!");
+      } else {
+        message.error(res.data.message || "Failed to generate the image");
+      }
     } catch (err: any) {
-      message.error("Failed to generate the image. Please try again.");
+      console.error('Error:', err);
+      message.error(err.response?.data?.message || "Failed to generate the image. Please try again.");
     } finally {
       setLoading(false);
     }

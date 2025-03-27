@@ -71,7 +71,7 @@ const Navbar = () => {
               className="bg-white text-purple-600 hover:bg-white/90 font-medium cursor-pointer"
             >
               {user ?
-                <><User className="h-5 w-5 mr-2" /><span className='text-black'>{user.name}</span></> :
+                <><User className="h-5 w-5 mr-2" /><span className='text-black'>{user.username}</span></> :
                 <><User className="h-5 w-5 mr-2" /><span>Sign In</span></>
               }
             </Button>
