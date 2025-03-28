@@ -45,23 +45,28 @@ const PromptGenerator = () => {
 
   // Handle Submit
   const handleSubmit = async () => {
-    if (!formData.userId || !formData.prompt || !formData.image) {
+    if (!formData.userId || !formData.prompt || !selectedImage) {
       message.error("Please upload an image and enter a description.");
       return;
     }
 
+    const formDataToSend = new FormData();
+    formDataToSend.append('image', selectedImage);
+    formDataToSend.append('prompt', formData.prompt);
+    formDataToSend.append('userId', formData.userId);
+
     setLoading(true);
     try {
-      const res = await generateImage(formData);
+      const res = await generateImage(formDataToSend);
       if (res.data.success) {
         setGeneratedImages([...generatedImages, res.data.image]);
         message.success("Image generated successfully!");
       } else {
         message.error(res.data.message || "Failed to generate the image");
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error:', err);
-      message.error(err.response?.data?.message || "Failed to generate the image. Please try again.");
+      message.error("Failed to generate the image. Please try again.");
     } finally {
       setLoading(false);
     }
