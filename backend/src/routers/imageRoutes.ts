@@ -5,6 +5,6 @@ import upload from '../utils/multer';
 
 const imageRouter = express.Router();
 
-imageRouter.post('/generate-image', upload.single('image'), generateImage as any);
+imageRouter.post('/generate-image/:userId', upload.single('image'), generateImage as any);
 
 export default imageRouter;
