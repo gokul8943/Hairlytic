@@ -1,7 +1,13 @@
 import axios from '../../constants/Instance'
 
-export const generateImage = (formData:any) =>{
-    console.log('data',formData);
-    
-    return axios.post('/generate/generate-image',formData)
+interface GenerateImageRequest {
+    prompt: string;
+    referenceImage: string;
+    userId: string;
+}
+
+export const generateImage = (data: GenerateImageRequest) => {
+    console.log('data', data);
+    const { userId, ...rest } = data;
+    return axios.post(`/generate/generate-image/${userId}`, rest);
 }

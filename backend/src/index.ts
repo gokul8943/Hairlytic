@@ -23,7 +23,7 @@ app.use(express.urlencoded({ limit: '20mb', extended: true }));
 app.use(cors(corsOptions))
 
 app.use('/user',userRouter)
-app.use('/generate',imageRouter)
+app.use('/generate',imageRouter)  
 
 app.listen(Port, () => {
         console.log(`http://localhost:${Port}`);

@@ -9,26 +9,24 @@ import { message, Spin } from 'antd';
 import useAuthStore from '@/store/AuthStore';
 
 interface GenerateFormData {
-  image: string;
-  userId: string;
   prompt: string;
+  referenceImage: string;
+  userId: string;
 }
 
 const PromptGenerator = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [generatedImages, setGeneratedImages] = useState<string[]>([]); // Store multiple generated images
+  const [generatedImages, setGeneratedImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const { authState } = useAuthStore()
 
-  const userId = authState.user?.id
-  console.log('User details:', authState.user);
+  const userId = authState.user?.id || '';
 
   const [formData, setFormData] = useState<GenerateFormData>({
-    userId: userId || '',
-    image: "",
     prompt: "",
+    referenceImage: "",
+    userId: userId
   });
-  console.log('Form data:', formData);
 
   // Handle Image Upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +34,9 @@ const PromptGenerator = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setSelectedImage(reader.result as string);
-        setFormData((prev) => ({ ...prev, image: reader.result as string }));
+        const imageUrl = reader.result as string;
+        setSelectedImage(imageUrl);
+        setFormData((prev) => ({ ...prev, referenceImage: imageUrl }));
       };
       reader.readAsDataURL(file);
     }
@@ -45,28 +44,30 @@ const PromptGenerator = () => {
 
   // Handle Submit
   const handleSubmit = async () => {
-    if (!formData.userId || !formData.prompt || !selectedImage) {
-      message.error("Please upload an image and enter a description.");
+    if (!formData.referenceImage || !formData.prompt || !formData.userId) {
+      message.error("Please upload an image, enter a description, and make sure you're logged in.");
       return;
     }
 
-    const formDataToSend = new FormData();
-    formDataToSend.append('image', selectedImage);
-    formDataToSend.append('prompt', formData.prompt);
-    formDataToSend.append('userId', formData.userId);
-
     setLoading(true);
     try {
-      const res = await generateImage(formDataToSend);
-      if (res.data.success) {
-        setGeneratedImages([...generatedImages, res.data.image]);
-        message.success("Image generated successfully!");
-      } else {
-        message.error(res.data.message || "Failed to generate the image");
+      try {
+        const res = await generateImage(formData);
+        console.log('res',res)
+        if (res.data.success) {
+          setGeneratedImages([...generatedImages, res.data.image]);
+          message.success("Image generated successfully!");
+        } else {
+          message.error(res.data.message || "Failed to generate the image");
+        }
+      } catch (error) {
+        console.log('error',error);
+        
       }
-    } catch (err) {
+      
+    } catch (err:any) {
       console.error('Error:', err);
-      message.error("Failed to generate the image. Please try again.");
+      message.error("Failed to generate the image. Please try again.",err);
     } finally {
       setLoading(false);
     }
@@ -103,7 +104,7 @@ const PromptGenerator = () => {
                         className="absolute top-2 right-2 bg-white/80 hover:bg-white"
                         onClick={() => {
                           setSelectedImage(null);
-                          setFormData((prev) => ({ ...prev, image: "" }));
+                          setFormData((prev) => ({ ...prev, referenceImage: "" }));
                         }}
                       >
                         <RefreshCcw className="h-4 w-4" />

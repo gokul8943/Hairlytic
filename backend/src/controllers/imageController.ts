@@ -12,9 +12,12 @@ const together = new Together({
 const generateImage = async (req: Request, res: Response) => {
     try {
         const userId = req.params.userId;
-        const { prompt } = req.body;
+        const { prompt, referenceImage } = req.body;
+      console.log('userid',userId);
+      
+        
 
-        console.log('Received request:', { prompt, userId });
+        console.log('Received request:', { prompt, userId, hasReference: !!referenceImage });
 
         if (!prompt || !userId) {
             return res.status(400).json({
@@ -38,23 +41,29 @@ const generateImage = async (req: Request, res: Response) => {
             });
         }
 
-        console.log('Sending request to TogetherAI API...');
-        const response = await together.images.create({
+        // Prepare payload
+        const requestPayload: any = {
             model: "black-forest-labs/FLUX.1-schnell-Free",
-            prompt: prompt,
+            prompt,
             steps: 4,
             n: 1
-        });
+        };
 
-        // Get the first generated image
-        const resultImage = response.data[0].url;
-        // const resultImage = `data:image/png;base64,${response.data[0].b64_json}`;
+        if (referenceImage) {
+            // Assuming Together API accepts 'image' as base64 or URL
+            requestPayload.image = referenceImage;
+        }
 
-        // Update user credits
+        console.log('Sending request to TogetherAI API...');
+        const response = await together.images.create(requestPayload);
+        console.log('Response:', response.data);
+
+        const resultImage = response.data?.[0]?.url || `data:image/png;base64,${response.data?.[0]?.b64_json}`;
+
+        // Update credits
         user.creditBalance = (user.creditBalance as number) - 1;
         await user.save();
 
-        // Return the result
         res.json({
             success: true,
             message: 'Image generated successfully',
